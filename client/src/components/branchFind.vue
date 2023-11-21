@@ -2,13 +2,15 @@
     <div>
       <h2>Branch Finder</h2>
       <div>
-        <form>
+        <form @submit.prevent="fetchBranch">
           <div>
             <label for="branchno">Branch Number</label>
-            <input type="text" id="branchno" required>
+            <input type="text" id="branchno" v-model="branchno" required>
           </div>
           <button type="submit">Submit</button>
         </form>
+        <label for="address">Address</label>
+        <input class="branch" type="text" id="address" v-model="branchAddress" required>
       </div>
     </div>
   </template>
@@ -17,14 +19,25 @@
     export default {
       data() {
         return {
-        
+        branchno: '',
+        branchAddress: '',
         };
       },
 
       methods: {
-        //Get Employees
         async fetchBranch() {
-          
+          try {
+          const rawBranchAddress = await this.$apiService.getBranch(this.branchno.toUpperCase());
+          if (rawBranchAddress.branchAddress == null){
+            this.branchAddress = "Branch Does Not Exist";
+          }
+          else{
+            this.branchAddress = rawBranchAddress.branchAddress;
+          }
+          console.log(rawBranchAddress)
+          } catch (error) {
+            console.error('Error creating employee:', error);
+          }
         },
       },
   };
@@ -60,10 +73,15 @@ form {
   cursor: pointer;
   margin-top: 10px;
   margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 button:hover {
   background-color: #45a049;
 }
 
+.branch {
+  max-width: 400px;
+  background-color: white;
+}
 </style>

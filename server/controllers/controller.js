@@ -3,7 +3,6 @@ const oracledb = require('oracledb');
 //Create New Employees
 const hireEmployee = async(req, res) => {
     const connection = req.db;
-    console.log('In function');
     try {
     const {first_name, last_name, job_title, dob, salary, branch, telephone, mobile, email } = req.body;
 
@@ -58,7 +57,6 @@ const updateEmployee = async (req, res) => {
 
   try {
       const { id, first_name, last_name, job_title, dob, salary, branch, telephone, mobile, email } = req.body;
-      console.log('In function');
       const params = {
           id,
           first_name,
@@ -102,7 +100,6 @@ const deleteEmployee = async (req, res) => {
   const connection = req.db;
   try {
     const { id } = req.params;
-    console.log('In function');
     console.log(id);
     await connection.execute(
       `DELETE FROM DH_STAFF 
@@ -120,4 +117,29 @@ const deleteEmployee = async (req, res) => {
   }
 }
 
-module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee};
+
+//Get Branch
+const getBranchAddress = async (req, res) => {
+  const connection = req.db;
+  try {
+    const { branchno } = req.params;
+    console.log('In' + branchno);
+    const result = await connection.execute(
+      `BEGIN :result := get_branch_Address(:branchno); END;`,
+      {
+        branchno: { dir: oracledb.BIND_IN, val: branchno },
+        result: { dir: oracledb.BIND_OUT, type: oracledb.STRING },
+      }
+    );
+
+    const branchAddress = result.outBinds.result;
+    console.log('Branch Address (In Controller):', branchAddress);
+
+    res.status(200).json({ branchAddress });
+  } catch (error) {
+    console.error('Error getting branch address:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress};

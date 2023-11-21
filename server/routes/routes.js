@@ -8,4 +8,6 @@ router.get('/employees', controller.getEmployees);
 router.put('/update/:id', controller.updateEmployee);
 router.delete('/delete/:id', controller.deleteEmployee);
 
+router.get('/branch/:branchno', controller.getBranchAddress);
+
 module.exports = router;

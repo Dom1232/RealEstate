@@ -50,8 +50,6 @@ export default {
 
 
 <style scoped>
-
-
 .text {
     font-weight: bold;
     font-size: large;

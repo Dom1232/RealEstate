@@ -44,5 +44,15 @@ export default {
         console.error('Error deleting employee:', error);
         throw error;
       }
-    }
+    },
+    
+    getBranch: async (branchno) => {
+      try {
+        console.log(branchno)
+        const response = await axios.get(`${API_URL}/branch/${branchno}`, branchno);
+        return response.data;
+      } catch (error) {
+        console.error('Error getting branch address:', error);
+      }
+    },
   };
