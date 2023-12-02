@@ -299,4 +299,36 @@ const updateClient = async (req, res) => {
   }
 }
 
-module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches, updateBranch, createBranch, getClients, updateClient};
+//Create New Client
+const newClient = async(req, res) => {
+  const connection = req.db;
+  try {
+    const {first_name, last_name, telephone, address, city, email, prefType, maxRent } = req.body;
+      const params = {
+          first_name,
+          last_name,
+          telephone,
+          address,
+          city,
+          email,
+          prefType,
+          maxRent,
+          
+      };
+
+  await connection.execute(
+      'BEGIN client_add(:first_name, :last_name, :telephone, :address, :city, :email, :prefType, :maxRent); END;',
+      params,
+      { autoCommit: true }
+  );
+
+  console.log('New Client Added');
+
+  res.status(200).json({ message: 'Client added successfully' });
+  } catch (error) {
+      console.error('Error adding Client:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches, updateBranch, createBranch, getClients, updateClient, newClient};

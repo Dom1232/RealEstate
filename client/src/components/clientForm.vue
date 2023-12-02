@@ -1,13 +1,13 @@
 <template>
     <div>
-      <h2>Update Client Info</h2>
-      <form @submit.prevent="update">
+      <h2>Add New Client</h2>
+      <form @submit.prevent="submitForm">
 
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" v-model="clientData.first_name" required disabled>
+        <input type="text" id="first_name" v-model="clientData.first_name" required>
 
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" v-model="clientData.last_name" required disabled>
+        <input type="text" id="last_name" v-model="clientData.last_name" required>
 
         <label for="telephone">Phone Number:</label>
         <input type="text" id="telephone" v-model="clientData.telephone">
@@ -38,11 +38,9 @@
   
 <script>
 export default {
-  props: ['clientNo', 'clientFNAME', 'clientLNAME', 'clientTelephone',  'clientStreet', 'clientCity', 'clientEmail', 'clientHomeType', 'clientMaxRent'],
-  
-  data() {
-    return {
-      clientData: {
+    data() {
+      return {
+        clientData: {
         clientNo: '',
         first_name: '',
         last_name: '',
@@ -53,31 +51,19 @@ export default {
         prefType: '',    
         maxRent: '',        
       },
-    };
-  },
+      };
+    },
 
-  mounted() {
-    this.clientData.clientNo = this.$route.query.clientNo;
-    this.clientData.first_name = this.$route.query.clientFNAME;
-    this.clientData.last_name = this.$route.query.clientLNAME;
-    this.clientData.telephone = this.$route.query.clientTelephone;
-    this.clientData.address = this.$route.query.clientStreet;
-    this.clientData.city = this.$route.query.clientCity;
-    this.clientData.email = this.$route.query.clientEmail;
-    this.clientData.prefType = this.$route.query.clientHomeType;
-    this.clientData.maxRent = this.$route.query.clientMaxRent; 
-  },
-
-  methods: {
-    update() {      
-      this.$apiService.updateClient(this.clientData)
-        .then(response => {
-          console.log('client updated successfully:', response);
-          this.$router.push({ name: 'clientList' });
-        })
-        .catch(error => {
-          console.error('Error updating Client:', error);
-        });
+    methods: {
+      submitForm() {
+        this.$apiService.createClient(this.clientData)
+          .then(response => {
+            console.log('Client created successfully:', response);
+            this.$router.push({ name: 'clientList' });
+          })
+          .catch(error => {
+            console.error('Error creating employee:', error);
+          });
       },
     },
   };

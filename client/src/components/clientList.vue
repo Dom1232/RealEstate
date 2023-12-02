@@ -2,7 +2,7 @@
     <div>
       <h2>Client Directory</h2>
       <div>
-        <router-link to="/client" class="button-link">Add New Client</router-link>
+        <router-link to="/clientForm" class="button-link">Add New Client</router-link>
       </div>
   
       <div class="client-grid">

@@ -115,4 +115,14 @@ export default {
         throw error;
       }
     },
+
+    createClient: async (clientData) => {
+      try {
+        const response = await axios.post(`${API_URL}/newclient`, clientData);
+        console.log('Response:', response.data);
+      } catch (error) {
+        console.error('Error adding client:', error);
+        throw error;
+      }
+    },
   };

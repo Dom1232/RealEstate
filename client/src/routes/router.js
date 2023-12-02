@@ -10,6 +10,7 @@ import editBranch from '../components/branchEdit.vue'
 import createBranch from '../components/branchCreate.vue'
 import listClients from '../components/clientList.vue'
 import editClients from '../components/clientEdit.vue'
+import formClient from '../components/clientForm.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -84,6 +85,11 @@ const router = createRouter({
         path: '/clientList',
         name: 'clientList',
         component: listClients,
+      },
+      {
+        path: '/clientForm',
+        name: 'clientForm',
+        component: formClient,
       },
       {
         path: '/clientEdit',
