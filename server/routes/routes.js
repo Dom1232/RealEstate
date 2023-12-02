@@ -15,5 +15,6 @@ router.put('/updateBranch/:branchno', controller.updateBranch);
 router.post('/location', controller.createBranch);
 
 router.get('/clients', controller.getClients);
+router.put('/updateClient/:clientNo', controller.updateClient);
 
 module.exports = router;

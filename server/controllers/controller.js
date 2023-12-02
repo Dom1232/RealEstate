@@ -256,4 +256,47 @@ const getClients = async (req, res) => {
   }
 }
 
-module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches, updateBranch, createBranch, getClients};
+//Update Client
+const updateClient = async (req, res) => {
+  const connection = req.db;
+
+  try {
+      const { clientNo, first_name, last_name, telephone, address, city, email, prefType, maxRent } = req.body;
+      const params = {
+          clientNo,
+          first_name,
+          last_name,
+          telephone,
+          address,
+          city,
+          email,
+          prefType,
+          maxRent,
+          
+      };
+      console.log(params);
+      await connection.execute(
+          `UPDATE DH_CLIENT 
+           SET FNAME = :first_name, 
+               LNAME = :last_name, 
+               TELNO = :telephone, 
+               STREET = :address, 
+               CITY = :city, 
+               EMAIL = :email, 
+               PREFTYPE = :prefType, 
+               MAXRENT = :maxRent 
+           WHERE CLIENTNO = :clientNo`,
+          params,
+          { autoCommit: true }
+      );
+  
+      console.log('Client Updated');
+  
+      res.status(200).json({ message: 'Client updated successfully' });
+  } catch (error) {
+      console.error('Error updating client:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches, updateBranch, createBranch, getClients, updateClient};

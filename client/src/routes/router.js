@@ -9,7 +9,7 @@ import listBranch from '../components/branchList.vue'
 import editBranch from '../components/branchEdit.vue'
 import createBranch from '../components/branchCreate.vue'
 import listClients from '../components/clientList.vue'
-
+import editClients from '../components/clientEdit.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -84,6 +84,22 @@ const router = createRouter({
         path: '/clientList',
         name: 'clientList',
         component: listClients,
+      },
+      {
+        path: '/clientEdit',
+        name: 'clientEdit',
+        component: editClients,
+        props: route => ({ 
+          clientNo: route.query.clientNo,
+          first_name: route.query.clientFNAME,
+          last_name: route.query.clientLNAME,
+          telephone: route.query.clientTelephone,
+          address: route.query.clientStreet,
+          city: route.query.clientCity,
+          email: route.query.clientEmail,
+          prefType: route.query.clientHomeType,
+          maxRent: route.query.clientMaxRent, 
+        })
       },
     ],
 });

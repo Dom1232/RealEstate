@@ -74,12 +74,12 @@
           const clientFNAME = client[1];
           const clientLNAME = client[2];
           const clientTelephone = client[3];
-          const clientStreet = client[5];
-          const clientCity = client[6];
-          const clientEmail = client[7];
-          const clientHomeType = client[8];
-          const clientMaxRent = client[9];
-          this.$router.push({ name: 'editclient', query: { clientNo, clientFNAME, clientLNAME, clientTelephone, clientStreet, clientCity, clientEmail, clientHomeType, clientMaxRent} });
+          const clientStreet = client[4];
+          const clientCity = client[5];
+          const clientEmail = client[6];
+          const clientHomeType = client[7];
+          const clientMaxRent = client[8];
+          this.$router.push({ name: 'clientEdit', query: { clientNo, clientFNAME, clientLNAME, clientTelephone, clientStreet, clientCity, clientEmail, clientHomeType, clientMaxRent} });
         },
       },
   };

@@ -28,7 +28,6 @@ export default {
       try {
         const response = await axios.put(`${API_URL}/update/${employeeData.id}`, employeeData);
         console.log('Response:', response.data);
-        console.log(employeeData)
       } catch (error) {
         console.error('Error updating employee:', error);
         throw error;
@@ -102,6 +101,17 @@ export default {
         return response.data;
       } catch (error) {
         console.error('Error fetching clients:', error);
+        throw error;
+      }
+    },
+
+    updateClient: async (clientData) => {
+      try {
+        const response = await axios.put(`${API_URL}/updateClient/${clientData.clientNo}`, clientData);
+        console.log('Response:', response.data);
+        console.log(clientData)
+      } catch (error) {
+        console.error('Error updating employee:', error);
         throw error;
       }
     },
