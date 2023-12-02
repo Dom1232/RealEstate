@@ -20,11 +20,7 @@
 
         <label for="branch">Branch:</label>
         <select id="branch" v-model="employeeData.branch" required>
-            <option value="B002">B002</option>
-            <option value="B003">B003</option>
-            <option value="B004">B004</option>
-            <option value="B005">B005</option>
-            <option value="B007">B007</option>
+          <option v-for="branch in branches" :key="branch[0]" :value="branch[0]" >{{branch[0]}} {{console.log(branch[0])}}</option>
         </select>
 
         <label for="telephone">Phone Number:</label>
@@ -46,19 +42,23 @@
 <script>
 export default {
     data() {
-    return {
-      employeeData: {
-        first_name: '',
-        last_name: '',
-        job_title: '',
-        dob: '',
-        salary: 0,
-        branch: '',
-        telephone: '',
-        mobile: '',
-        email: '',
-      },
-    };
+      return {
+        employeeData: {
+          first_name: '',
+          last_name: '',
+          job_title: '',
+          dob: '',
+          salary: 0,
+          branch: '',
+          telephone: '',
+          mobile: '',
+          email: '',
+        },
+        branches: [],
+      };
+    },
+    created() {
+      this.fetchBranches();
     },
     methods: {
       submitForm() {
@@ -70,6 +70,24 @@ export default {
           .catch(error => {
             console.error('Error creating employee:', error);
           });
+      },
+      async fetchBranches() {
+        try {
+          const rawBranches = await this.$apiService.getBranches();
+          this.branches = this.transformBranches(rawBranches);
+        } catch (error) {
+          console.error('Error fetching branches:', error);
+        }
+      },
+      transformBranches(rawBranches) {
+        if (Array.isArray(rawBranches)) {
+          return rawBranches;
+        } else if (rawBranches && rawBranches.branches) {
+          return rawBranches.branches;
+        } else {
+          console.error('Unexpected data structure:', rawBranches);
+          return [];
+        }
       },
     },
   };

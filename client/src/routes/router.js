@@ -5,6 +5,8 @@ import ListEmployees from '../components/employeeList.vue'
 import editEmployee from '../components/employeeEdit.vue'
 import deleteEmployee from '../components/employeeDelete.vue'
 import findBranch from '../components/branchFind.vue'
+import listBranch from '../components/branchList.vue'
+import editBranch from '../components/branchEdit.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -53,6 +55,22 @@ const router = createRouter({
         path: '/find',
         name: 'findBranch',
         component: findBranch,
+      },
+      {
+        path: '/listBranch',
+        name: 'listBranch',
+        component: listBranch,
+      },
+      {
+        path: '/editBranch',
+        name: 'editBranch',
+        component: editBranch,
+        props: route => ({ 
+          branchno : route.query.branchno,
+          branchAddress: route.query.branchAddress,
+          branchCity: route.query.branchCity,
+          branchPostalCode: route.query.branchPostalCode,
+        })
       },
     ],
 });

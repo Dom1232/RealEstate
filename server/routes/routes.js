@@ -9,5 +9,8 @@ router.put('/update/:id', controller.updateEmployee);
 router.delete('/delete/:id', controller.deleteEmployee);
 
 router.get('/branch/:branchno', controller.getBranchAddress);
+router.get('/branch', controller.getBranches);
+router.get('/branchAll', controller.getAllBranches);
+router.put('/updateBranch/:branchno', controller.updateBranch);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>____ Real Estate Management System</h1>
+    <h1>Real Estate Management System</h1>
   </div>
 </template>
 

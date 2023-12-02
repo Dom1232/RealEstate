@@ -123,7 +123,6 @@ const getBranchAddress = async (req, res) => {
   const connection = req.db;
   try {
     const { branchno } = req.params;
-    console.log('In' + branchno);
     const result = await connection.execute(
       `BEGIN :result := get_branch_Address(:branchno); END;`,
       {
@@ -133,7 +132,6 @@ const getBranchAddress = async (req, res) => {
     );
 
     const branchAddress = result.outBinds.result;
-    console.log('Branch Address (In Controller):', branchAddress);
 
     res.status(200).json({ branchAddress });
   } catch (error) {
@@ -142,4 +140,74 @@ const getBranchAddress = async (req, res) => {
   }
 };
 
-module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress};
+//Get list of Branches
+const getBranches = async (req, res) => {
+  const connection = req.db;
+  try {
+
+    const result = await connection.execute(
+      'SELECT branchno FROM DH_BRANCH',
+      [],
+    );
+
+    const branches = result.rows;
+
+    res.status(200).json({ branches});
+  } catch (error) {
+    console.error('Error getting branches:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const getAllBranches = async (req, res) => {
+  const connection = req.db;
+  try {
+
+    const result = await connection.execute(
+      'SELECT * FROM DH_BRANCH',
+      [],
+    );
+
+    const branches = result.rows;
+
+    res.status(200).json({ branches});
+  } catch (error) {
+    console.error('Error getting branches:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+//Update Branch
+const updateBranch = async (req, res) => {
+  const connection = req.db;
+
+  try {
+      const { branchno, address, city, postalCode } = req.body;
+      const params = {
+        branchno,
+        address,
+        city,
+        postalCode,
+      };
+      console.log(params);
+      await connection.execute(
+          `UPDATE DH_BRANCH 
+           SET STREET = :address, 
+               CITY = :city, 
+               POSTCODE = :postalCode 
+           WHERE BRANCHNO = :branchno`,
+          params,
+          { autoCommit: true }
+      );
+  
+      console.log('Branch Updated');
+  
+      res.status(200).json({ message: 'Branch updated successfully' });
+  } catch (error) {
+      console.error('Error updating Branch:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches,updateBranch};

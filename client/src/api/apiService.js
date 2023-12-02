@@ -55,4 +55,34 @@ export default {
         console.error('Error getting branch address:', error);
       }
     },
+
+    getBranches: async () => {
+      try {
+        const response = await axios.get(`${API_URL}/branch`);
+        return response.data;
+      } catch (error) {
+        console.error('Error getting branch address:', error);
+      }
+    },
+
+    getAllBranches: async () => {
+      try {
+        const response = await axios.get(`${API_URL}/branchAll`);
+        return response.data;
+      } catch (error) {
+        console.error('Error getting branch address:', error);
+      }
+    },
+
+    updateBranch: async (branchData) => {
+      try {
+        console.log(branchData);
+        const response = await axios.put(`${API_URL}/updateBranch/${branchData.branchno}`, branchData);
+        console.log('Response:', response.data);
+        console.log(branchData)
+      } catch (error) {
+        console.error('Error updating branch:', error);
+        throw error;
+      }
+    },
   };

@@ -6,7 +6,7 @@
     </div>
 
     <div class="employee-grid">
-      <!-- Headings Row -->
+      <!-- Headings-->
       <div class="employee-row" v-if="employees.length > 0">
         <div class="employee-column"><strong>Name</strong></div>
         <div class="employee-column"><strong>Position</strong></div>
