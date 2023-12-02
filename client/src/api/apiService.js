@@ -85,4 +85,24 @@ export default {
         throw error;
       }
     },
+
+    createBranch: async (branchData) => {
+      try {
+        const response = await axios.post(`${API_URL}/location`, branchData);
+        console.log('Response:', response.data);
+      } catch (error) {
+        console.error('Error creating branch:', error);
+        throw error;
+      }
+    },
+
+    getClients: async () => {
+      try {
+        const response = await axios.get(`${API_URL}/clients`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+        throw error;
+      }
+    },
   };

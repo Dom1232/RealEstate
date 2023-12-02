@@ -20,7 +20,7 @@
 
         <label for="branch">Branch:</label>
         <select id="branch" v-model="employeeData.branch" required>
-          <option v-for="branch in branches" :key="branch[0]" :value="branch[0]" >{{branch[0]}} {{console.log(branch[0])}}</option>
+          <option v-for="branch in branches" :key="branch[0]" :value="branch[0]" >{{branch[0]}}</option>
         </select>
 
         <label for="telephone">Phone Number:</label>

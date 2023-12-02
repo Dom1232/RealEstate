@@ -208,6 +208,52 @@ const updateBranch = async (req, res) => {
       console.error('Error updating Branch:', error.message);
       res.status(500).json({ error: 'Internal Server Error' });
   }
+};
+
+//Create New Branch
+const createBranch = async(req, res) => {
+  const connection = req.db;
+  try {
+    const { branchno, address, city, postalCode } = req.body;
+
+    const params = {
+      branchno,
+      address,
+      city,
+      postalCode,
+    };
+    console.log(params)
+    await connection.execute(
+        'BEGIN new_branch(:branchno, :address, :city, :postalCode); END;',
+        params,
+        { autoCommit: true }
+    );
+
+  console.log('New Branch Added');
+
+  res.status(200).json({ message: 'Branch created successfully' });
+  } catch (error) {
+      console.error('Error creating Branch:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+//List Clients
+const getClients = async (req, res) => {
+  const connection = req.db;
+
+  try {
+    const result = await connection.execute(
+      'SELECT * FROM DH_CLIENT',
+    );
+
+    const clients = result.rows;
+    console.log('Client List Created');
+    res.status(200).json({ clients });
+  } catch (error) {
+    console.error('Error getting clients:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 }
 
-module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches,updateBranch};
+module.exports = {hireEmployee, getEmployees, updateEmployee, deleteEmployee, getBranchAddress, getBranches, getAllBranches, updateBranch, createBranch, getClients};

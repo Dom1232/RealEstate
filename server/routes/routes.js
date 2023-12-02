@@ -12,5 +12,8 @@ router.get('/branch/:branchno', controller.getBranchAddress);
 router.get('/branch', controller.getBranches);
 router.get('/branchAll', controller.getAllBranches);
 router.put('/updateBranch/:branchno', controller.updateBranch);
+router.post('/location', controller.createBranch);
+
+router.get('/clients', controller.getClients);
 
 module.exports = router;

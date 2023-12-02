@@ -2,7 +2,7 @@
     <div>
       <h2>Branch Directory</h2>
       <div>
-        <router-link to="/hire" class="button-link">Create New Branch</router-link>
+        <router-link to="/createBranch" class="button-link">Create New Branch</router-link>
       </div>
   
       <div class="branch-grid">

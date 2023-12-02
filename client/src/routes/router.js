@@ -7,6 +7,9 @@ import deleteEmployee from '../components/employeeDelete.vue'
 import findBranch from '../components/branchFind.vue'
 import listBranch from '../components/branchList.vue'
 import editBranch from '../components/branchEdit.vue'
+import createBranch from '../components/branchCreate.vue'
+import listClients from '../components/clientList.vue'
+
 
 const router = createRouter({
     history: createWebHistory(),
@@ -71,6 +74,16 @@ const router = createRouter({
           branchCity: route.query.branchCity,
           branchPostalCode: route.query.branchPostalCode,
         })
+      },
+      {
+        path: '/createBranch',
+        name: 'createBranch',
+        component: createBranch,
+      },
+      {
+        path: '/clientList',
+        name: 'clientList',
+        component: listClients,
       },
     ],
 });

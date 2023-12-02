@@ -13,7 +13,7 @@
         <input class="branch" type="text" id="address" v-model="branchAddress" required>
       </div>
       <RouterLink to="/listBranch">
-        <button></button>
+        <button>List of Branches</button>
       </RouterLink>
     </div>
   </template>
