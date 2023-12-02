@@ -27,7 +27,6 @@
         <label for="maxRent">Max Rent:</label>
         <input type="number" id="maxRent" v-model="clientData.maxRent">
 
-
         <router-link to="/clientList">
           <button>Cancel</button>
         </router-link>
