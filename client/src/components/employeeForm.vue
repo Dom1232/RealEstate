@@ -65,7 +65,7 @@ export default {
         this.$apiService.createEmployee(this.employeeData)
           .then(response => {
             console.log('Employee created successfully:', response);
-            this.$router.push({ name: 'list' });
+            this.$router.push({ name: 'listEmployees' });
           })
           .catch(error => {
             console.error('Error creating employee:', error);
